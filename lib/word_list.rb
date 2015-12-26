@@ -1,3 +1,5 @@
+require "prefix_tree"
+
 class WordList
   def self.load(filename)
     new(File.read(filename).lines.map(&:strip))
