@@ -8,4 +8,4 @@ require "word_list"
 wordlist = WordList.load(ARGV[0])
 board = Board.new($stdin.each_line.map { |line| line.downcase.strip.chars })
 
-puts Boggle.new(board, wordlist).solve.select { |word| word.length > 3 }
+puts Boggle.new(board, wordlist).solve.select { |word| word.length >= 3 }
