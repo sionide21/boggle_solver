@@ -7,7 +7,7 @@ class WordList
 
   attr_reader :words
   def initialize(words)
-    @words = words
+    @words = words.map(&:downcase).uniq
   end
 
   def to_prefix_tree
