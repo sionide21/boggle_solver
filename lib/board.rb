@@ -1,12 +1,13 @@
 class Board
+  NEIGHBORS = [[0, 1], [0, -1], [1, 0], [1, -1], [-1, 0], [-1, 1], [1, 1], [-1, -1]]
+
   def initialize(matrix)
     @matrix = matrix.map { |row| row.map { |value| Square.new(value) } }
 
     @matrix.each_with_index do |row, y|
       row.each_with_index do |square, x|
-        neighboring_squares(y, x) do |i, j|
-          next if i < 0 || j < 0
-          square << @matrix[i][j] if @matrix[i]
+        neighboring_indices(y, x) do |i, j|
+          square << self[i, j]
         end
       end
     end
@@ -24,19 +25,19 @@ class Board
 
   private
 
-  def neighboring_squares(i, j)
-    yield(i, j-1)
-    yield(i, j+1)
-    yield(i-1, j)
-    yield(i-1, j-1)
-    yield(i-1, j+1)
-    yield(i+1, j)
-    yield(i+1, j-1)
-    yield(i+1, j+1)
+  def [](y, x)
+    @matrix[y] && @matrix[y][x]
+  end
+
+  def neighboring_indices(i, j)
+    indices = NEIGHBORS.map {|y, x| [y+i, x+j] }
+    indices.each do |y, x|
+      yield(y, x) unless y < 0 || x < 0
+    end
   end
 
   class Square
-    attr_reader :value, :neighbors
+    attr_reader :value
 
     def initialize(value)
       @value = value
