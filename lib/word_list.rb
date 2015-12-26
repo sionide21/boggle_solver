@@ -14,6 +14,10 @@ class WordList
     @prefix_tree ||= build_tree
   end
 
+  def inspect
+    "#<WordList length=#{words.length}>"
+  end
+
   private
 
   def build_tree

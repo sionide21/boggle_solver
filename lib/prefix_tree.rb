@@ -25,6 +25,10 @@ class PrefixTree
     lookup(head).has_prefix?(tail)
   end
 
+  def inspect
+    "#<PrefixTree nodes=#{@nodes.length} @entry=#{@entry}>"
+  end
+
   private
 
   def fetch(val)
